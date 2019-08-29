@@ -1,0 +1,21 @@
+<!-- <div style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+  <form style="width: 400px;" [formGroup]="form" (ngSubmit)="form_submit()">
+    <an-datepicker
+      (anDPDaySelect)="onClick($event)"
+      [firstDayOfWeek]="1"
+      formControlName="date"
+      [dateMinValidate]="'20.09.2019'"
+      [dateMaxValidate]="'22.09.2019'"
+      [minSelectableDate]="'20.09.2019'"
+      [maxSelectableDate]="'22.09.2019'"
+    >
+    </an-datepicker>
+    <p *ngIf="form.get('date').hasError('required')">Field required</p>
+    <p *ngIf="form.get('date').hasError('dateMinValidateError')">Date min validate error</p>
+    <p *ngIf="form.get('date').hasError('dateMaxValidateError')">Date max validate error</p>
+    <p *ngIf="form.get('date').touched">Input toucher</p>
+    <input type="text" formControlName="someDummy" />
+  </form>
+</div> -->
+<an-datetimepicker [(ngModel)]="d" [maxSelectableDate]="'21.09.2019 01:00'"></an-datetimepicker>
+<an-datepicker [maxSelectableDate]="'30.08.2019'"></an-datepicker>

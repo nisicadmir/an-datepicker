@@ -1,0 +1,30 @@
+{
+  "name": "an-datepicker",
+  "version": "1.2.2",
+  "authors": [
+    "Admir Nisic <admir.nisic@outlook.com"
+  ],
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nisicadmir/an-datepicker.git"
+  },
+  "homepage": "https://github.com/nisicadmir/an-datepicker#readme",
+  "keywords": [
+    "angular",
+    "angular 6",
+    "angular 7",
+    "datepicker",
+    "daypicker",
+    "daytimepicker",
+    "date picker"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "~8.0.0",
+    "@angular/core": "~8.0.0"
+  },
+  "dependencies": {
+    "moment": "^2.24.0"
+  }
+}

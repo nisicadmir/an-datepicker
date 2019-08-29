@@ -1,0 +1,70 @@
+<div class="an-datepicker" [style.width]="input_width">
+  [style.width]="input_width"
+  <div
+    *ngIf="!only_calendar"
+    #inputElement
+    [id]="input_id"
+    type="text"
+    class="an-datepicker--input"
+    [style.height.px]="input_height"
+    [ngClass]="{ 'is-readonly': is_readonly }"
+    (click)="datepicker_toggle(); onTouchedCallback()"
+  >
+    <div *ngIf="value_selected_get()" class="an-datepicker--input--text {{ add_class }}">{{ value_selected_get() }}</div>
+    <div *ngIf="!value_selected_get()" class="an-datepicker--input--placeholder">{{ placeholder_val }}</div>
+  </div>
+  <div
+    *ngIf="opened || only_calendar"
+    class="an-datepicker--calendar an-datepicker--calendar--{{ position }}"
+    [style.top]="(position === 'top-left' || position === 'top-right') && !only_calendar ? input_height + 'px' : ''"
+    [style.bottom]="(position === 'bottom-left' || position === 'bottom-right') && !only_calendar ? input_height + 'px' : ''"
+    [style.width]="calendar_width"
+    [style.padding]="calendar_padding"
+    [ngClass]="{ 'only-calendar': only_calendar }"
+    #pickerElement
+  >
+    <div class="an-datepicker--calendar--bar">
+      <div class="an-datepicker--calendar--bar--icon left" (click)="month_change('dec')"></div>
+      <span (click)="showYears_toggle()">{{ date_selected_bar_display }}</span>
+      <div class="an-datepicker--calendar--bar--icon right" (click)="month_change('inc')"></div>
+    </div>
+    <!-- bar -->
+    <div *ngIf="!show_years" class="an-datepicker--calendar--weekdays" [style.margin-left]="week_number_width">
+      <span class="an-datepicker--calendar--weekdays--weekday" *ngFor="let day of day_names">{{ day }}</span>
+    </div>
+    <!-- week days -->
+    <div *ngIf="!show_years" class="an-datepicker--calendar--weeks">
+      <div
+        *ngFor="let week of weeks"
+        class="an-datepicker--calendar--weeks--week"
+        [style.height]="week_calendar_height"
+        [ngClass]="{
+          'an-datepicker--calendar--weeks--week--is-week': week.isWeek,
+          'an-datepicker--calendar--weeks--week--is-selected': week.isSelected,
+          'an-datepicker--calendar--weeks--week--is-not-selectable': !week.isSelectable
+        }"
+        (click)="week.isSelectable && valuDate_set(week.moment)"
+      >
+        <div class="an-datepicker--calendar--weeks--week--number" [style.width]="week_number_width">{{ week.week }}</div>
+        <div class="an-datepicker--calendar--weeks--week--days" [style.width]="'calc(100% - ' + week_number_width + ')'">
+          <span *ngFor="let day of week.days" class="an-datepicker--calendar--weeks--week--days--day">{{ day }}</span>
+        </div>
+      </div>
+    </div>
+    <!-- weeks -->
+    <div *ngIf="show_years" class="an-datepicker--calendar--years">
+      <span
+        *ngFor="let year of years"
+        class="an-datepicker--calendar--years--year"
+        [ngClass]="{
+          'an-datepicker--calendar--years--year--is-this-year': year.isThisYear,
+          'an-datepicker--calendar--years--year--not-selectable': !year.isSelectable
+        }"
+        (click)="year_select(year.year)"
+        >{{ year.year }}</span
+      >
+    </div>
+    <!-- days -->
+  </div>
+  <!-- an-datepicker--calendar -->
+</div>

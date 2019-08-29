@@ -1,0 +1,360 @@
+@blue-dark: #344b7a;
+@blue-middle: #11a0d8;
+@blue-light: #11a0d8;
+
+@gray-dark: #4a4a4a;
+@gray-middle: #9b9b9b;
+@gray-light: #e6e6e6;
+
+@red-middle: #d6051d;
+@mixin-padding: 10px;
+
+@z-index--calendar-datepicker: 999;
+@arrow-image: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA0NDQuODE5IDQ0NC44MTkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ0NC44MTkgNDQ0LjgxOTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxwYXRoIGQ9Ik00MzQuMjUyLDExNC4yMDNsLTIxLjQwOS0yMS40MTZjLTcuNDE5LTcuMDQtMTYuMDg0LTEwLjU2MS0yNS45NzUtMTAuNTYxYy0xMC4wOTUsMC0xOC42NTcsMy41MjEtMjUuNywxMC41NjEgICBMMjIyLjQxLDIzMS41NDlMODMuNjUzLDkyLjc5MWMtNy4wNDItNy4wNC0xNS42MDYtMTAuNTYxLTI1LjY5Ny0xMC41NjFjLTkuODk2LDAtMTguNTU5LDMuNTIxLTI1Ljk3OSwxMC41NjFsLTIxLjEyOCwyMS40MTYgICBDMy42MTUsMTIxLjQzNiwwLDEzMC4wOTksMCwxNDAuMTg4YzAsMTAuMjc3LDMuNjE5LDE4Ljg0MiwxMC44NDgsMjUuNjkzbDE4NS44NjQsMTg1Ljg2NWM2Ljg1NSw3LjIzLDE1LjQxNiwxMC44NDgsMjUuNjk3LDEwLjg0OCAgIGMxMC4wODgsMCwxOC43NS0zLjYxNywyNS45NzctMTAuODQ4bDE4NS44NjUtMTg1Ljg2NWM3LjA0My03LjA0NCwxMC41NjctMTUuNjA4LDEwLjU2Ny0yNS42OTMgICBDNDQ0LjgxOSwxMzAuMjg3LDQ0MS4yOTUsMTIxLjYyOSw0MzQuMjUyLDExNC4yMDN6IiBmaWxsPSIjOWI5YjliIi8+PC9nPjwvc3ZnPg==';
+@calendar-image: 'data:image/png;base64,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';
+* {
+  box-sizing: border-box;
+}
+.an-datepicker {
+  position: relative;
+  &--input {
+    border: 1px solid @gray-light;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 30px;
+    z-index: @z-index--calendar-datepicker + 1;
+    font-size: 13px;
+    font-weight: 400;
+    &:read-only {
+      background-color: @gray-light;
+      pointer-events: none;
+    }
+    &--disable-input {
+      pointer-events: none;
+    }
+  }
+  &--icon {
+    position: absolute;
+    background-image: url('@{calendar-image}');
+    background-repeat: no-repeat;
+    background-position: center right 8px;
+    background-size: 15px !important;
+    z-index: @z-index--calendar-datepicker + 1;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  &--calendar {
+    z-index: @z-index--calendar-datepicker + 2;
+    position: absolute;
+    border: 1px solid @gray-light;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &--top-left {
+      left: 0;
+    }
+    &--top-right {
+      right: 0;
+    }
+    &--bottom-left {
+      left: 0;
+    }
+    &--bottom-right {
+      right: 0;
+    }
+    &.only-calendar {
+      border: none;
+      box-shadow: none;
+      position: relative !important;
+    }
+    &--bar {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid @gray-light;
+      &--icon {
+        width: 10px;
+        height: 10px;
+        cursor: pointer;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        &.left {
+          transform: rotate(90deg);
+          background-image: url('@{arrow-image}');
+        }
+        &.right {
+          transform: rotate(-90deg);
+          background-image: url('@{arrow-image}');
+        }
+      }
+      span {
+        font-size: 15px;
+        color: @gray-dark;
+        font-weight: 400;
+        cursor: pointer;
+      }
+    }
+    &--weekdays {
+      display: flex;
+      height: 30px;
+      align-items: center;
+      &--weekday {
+        max-width: 14.28%;
+        min-width: 14.28%;
+        text-align: center;
+        color: @gray-middle;
+        font-size: 13px;
+      }
+    }
+    // &--weekdays
+    &--days {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      &--day {
+        width: 13%;
+        // height: 40px;
+        color: @gray-dark;
+        font-size: 12px;
+        background-color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        &:hover {
+          background-color: @blue-light;
+          color: #ffffff;
+        }
+        &--is-today {
+          background-color: @gray-middle;
+          color: #ffffff !important;
+        }
+        &--is-selected {
+          background-color: @blue-dark;
+          color: #ffffff;
+        }
+        &--is-not-selectable {
+          color: @red-middle !important;
+          opacity: 0.7;
+          cursor: auto;
+          pointer-events: none;
+        }
+        &--is-not-in-month {
+          color: @gray-middle;
+        }
+      }
+    }
+    // &--days
+    &--time {
+      height: 80px;
+      display: flex;
+      padding: 10px 0;
+      .mixin-dt {
+        width: 15px;
+        height: 15px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        cursor: pointer;
+        &--up {
+          background-image: url('@{arrow-image}');
+          transform: rotate(180deg);
+        }
+        &--down {
+          background-image: url('@{arrow-image}');
+        }
+      }
+      .mixin-hma {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        div {
+          font-size: 20px;
+        }
+      }
+      &--hour {
+        .mixin-hma;
+      }
+      &--minute {
+        .mixin-hma;
+      }
+      &--am {
+        .mixin-hma;
+        justify-content: center;
+      }
+    }
+    &--show-time {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      div {
+        color: @blue-middle;
+        font-weight: 400;
+        font-size: 15px;
+        cursor: pointer;
+      }
+    }
+    // show-time
+    &--months {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      &--month {
+        width: 30%;
+        // height: 40px;
+        color: @gray-dark;
+        font-size: 12px;
+        background-color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        &:hover {
+          background-color: @blue-light;
+          color: #ffffff;
+        }
+        &--is-month {
+          background-color: @gray-middle;
+          color: #ffffff !important;
+        }
+        &--is-selected {
+          background-color: @blue-dark;
+          color: #ffffff;
+        }
+        &--is-not-selectable {
+          color: @red-middle !important;
+          opacity: 0.7;
+          cursor: auto;
+          pointer-events: none;
+        }
+        &--is-not-in-month {
+          color: @gray-middle;
+        }
+      }
+    }
+    // &--months
+    // &--weeks
+    &--weeks {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      &--week {
+        width: 100%;
+        display: flex;
+        cursor: pointer;
+        &--number {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 15px;
+          font-weight: 500;
+          color: @gray-dark;
+        }
+        // &--number
+        &--days {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          &--day {
+            width: 13%;
+            color: @gray-dark;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+        // &--days
+        &:hover {
+          background-color: @blue-light;
+        }
+        &:hover &--number {
+          color: #ffffff;
+        }
+        &:hover &--days--day {
+          color: #ffffff;
+        }
+        &--is-week {
+          background-color: @gray-middle;
+        }
+        &--is-week &--number {
+          color: #ffffff !important;
+        }
+        &--is-week &--days--day {
+          color: #ffffff !important;
+        }
+        &--is-selected {
+          background-color: @blue-middle;
+        }
+        &--is-selected &--number {
+          color: #ffffff !important;
+        }
+        &--is-selected &--days--day {
+          color: #ffffff !important;
+        }
+        &--is-not-selectable {
+          opacity: 0.7;
+          cursor: auto;
+          pointer-events: none;
+        }
+        &--is-not-selectable &--number {
+          color: @red-middle !important;
+        }
+        &--is-not-selectable &--days--day {
+          color: @red-middle !important;
+        }
+      }
+    }
+    // &--weeks
+    &--years {
+      display: flex;
+      flex-wrap: wrap;
+      height: 235px;
+      overflow-y: scroll;
+      &--year {
+        width: 33%;
+        height: 40px;
+        text-align: center;
+        font-size: 13px;
+        border-radius: 3px;
+        color: @gray-dark;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        &:hover {
+          background-color: @blue-light;
+          color: #ffffff;
+        }
+        &--is-this-year {
+          background-color: @blue-light;
+          color: #ffffff;
+        }
+        &--not-selectable {
+          color: @red-middle;
+          cursor: auto;
+          pointer-events: none;
+        }
+      }
+    }
+    // &--years
+  }
+  // &--calendar
+}
+
+.is-readonly {
+  background-color: @gray-light;
+  pointer-events: none;
+}

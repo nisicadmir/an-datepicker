@@ -1,0 +1,110 @@
+<div class="an-datepicker" [style.width]="optionsModel.inputWidth">
+  <!-- <app-an-input></app-an-input> -->
+  <input
+    *ngIf="!optionsModel.isOnlyCalendar"
+    [id]="optionsModel.inputId"
+    #inputElement
+    type="text"
+    class="an-datepicker--input input {{ optionsModel.inputClass }}"
+    [style.width]="optionsModel.inputWidth"
+    [style.max-width]="optionsModel.inputWidth"
+    [style.min-width]="optionsModel.inputWidth"
+    [style.height.px]="optionsModel.inputHeight"
+    [style.min-height.px]="optionsModel.inputHeight"
+    [style.max-height.px]="optionsModel.inputHeight"
+    (blur)="onTouchedCallback(); onChangeText(inputElement.value)"
+    (keyup.enter)="onChangeText(inputElement.value)"
+    [value]="dateSelectedFormated"
+    [placeholder]="optionsModel.placeholder"
+    [readOnly]="optionsModel.isReadonly"
+    [ngClass]="{ 'an-datepicker--input--disable-input': this.optionsModel.isDisabledInput }"
+  />
+  <div
+    class="an-datepicker--icon"
+    [style.height.px]="optionsModel.inputHeight"
+    [style.min-height.px]="optionsModel.inputHeight"
+    [style.max-height.px]="optionsModel.inputHeight"
+    [style.width.px]="optionsModel.inputHeight"
+    [style.max-width.px]="optionsModel.inputHeight"
+    [style.min-width.px]="optionsModel.inputHeight"
+    [ngClass]="{ 'is-readonly': optionsModel.isReadonly }"
+    (click)="datepicker_toggle()"
+  ></div>
+
+  <div
+    *ngIf="opened || optionsModel.isOnlyCalendar"
+    class="an-datepicker--calendar an-datepicker--calendar--{{ optionsModel.calendarPosition }}"
+    [style.top]="
+      (optionsModel.calendarPosition === 'top-left' ||
+        optionsModel.calendarPosition === 'top-right') &&
+      !optionsModel.isOnlyCalendar
+        ? optionsModel.inputHeight + 'px'
+        : ''
+    "
+    [style.bottom]="
+      (optionsModel.calendarPosition === 'bottom-left' ||
+        optionsModel.calendarPosition === 'bottom-right') &&
+      !optionsModel.isOnlyCalendar
+        ? optionsModel.inputHeight + 'px'
+        : ''
+    "
+    [style.max-width]="optionsModel.calendarWidth"
+    [style.min-width]="optionsModel.calendarWidth"
+    [style.padding]="optionsModel.calendarPadding"
+    [ngClass]="{ 'only-calendar': optionsModel.isOnlyCalendar }"
+    #pickerElement
+  >
+    <div class="an-datepicker--calendar--bar" [style.width.px]="optionsModel.calculatedWidth">
+      <div class="an-datepicker--calendar--bar--icon left" (click)="month_change('dec')"></div>
+      <span (click)="showYears_toggle()">{{ date_selected_bar_display }}</span>
+      <div class="an-datepicker--calendar--bar--icon right" (click)="month_change('inc')"></div>
+    </div>
+    <!-- bar -->
+    <div
+      *ngIf="!show_years"
+      class="an-datepicker--calendar--weekdays"
+      [style.width.px]="optionsModel.calculatedWidth"
+    >
+      <span class="an-datepicker--calendar--weekdays--weekday" *ngFor="let day of day_names">{{
+        day
+      }}</span>
+    </div>
+    <!-- week days -->
+    <div
+      *ngIf="!show_years"
+      class="an-datepicker--calendar--days"
+      [style.width.px]="optionsModel.calculatedWidth"
+    >
+      <span
+        class="an-datepicker--calendar--days--day"
+        *ngFor="let day of days"
+        [ngClass]="{
+          'an-datepicker--calendar--days--day--is-today': day.isToday,
+          'an-datepicker--calendar--days--day--is-selected': day.isSelected,
+          'an-datepicker--calendar--days--day--is-not-selectable': !day.isSelectable,
+          'an-datepicker--calendar--days--day--is-not-in-month': !day.isInMonth
+        }"
+        [style.height.px]="optionsModel.dayWidthHeight"
+        [style.width.px]="optionsModel.dayWidthHeight"
+        [style.border-radius]="optionsModel.dayBorderRadius"
+        (click)="day.isSelectable && valuDate_set(day.moment)"
+        >{{ day.day }}</span
+      >
+    </div>
+    <!-- days -->
+    <div *ngIf="show_years" class="an-datepicker--calendar--years">
+      <span
+        *ngFor="let year of years"
+        class="an-datepicker--calendar--years--year"
+        [ngClass]="{
+          'an-datepicker--calendar--years--year--is-this-year': year.isThisYear,
+          'an-datepicker--calendar--years--year--not-selectable': !year.isSelectable
+        }"
+        (click)="year_select(year.year)"
+        >{{ year.year }}</span
+      >
+    </div>
+    <!-- days -->
+  </div>
+  <!-- an-datepicker--calendar -->
+</div>
